@@ -26,10 +26,10 @@ const variantClasses = {
 
 // Define variant classes for the disabled button component
 const disabledVariantClasses = {
-    primary: "bg-black_main text-black_main",
-    secondary: "bg-black_main text-black_main border border-black_main",
-    outline: "bg-transparent text-black_main border border-black_main",
-  };
+  primary: "bg-black_main text-black_main",
+  secondary: "bg-black_main text-black_main border border-black_main",
+  outline: "bg-transparent text-black_main border border-black_main",
+};
 
 // Define the base button props, including the button type properties
 interface BaseButtonProps extends ButtonType {
