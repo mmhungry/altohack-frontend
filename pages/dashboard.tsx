@@ -97,7 +97,7 @@ const monthlyElectricityUsageData: BarGraphData[] = [
 ];
 const yearlyElectricityUsageData:BarGraphData[] = [
   {
-    x: ["2018", "2019", "2020", "2021", "2022", "2023"],
+    x: [ "2019", "2020", "2021", "2022", "2023"],
     y: [1865902, 1565902, 65902, 1565902, 52196],
     type: "bar",
     name: "Yearly Data",
