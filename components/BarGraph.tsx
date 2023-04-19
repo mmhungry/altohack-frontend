@@ -39,6 +39,9 @@ interface BarGraphProps {
   showYAxisTitle?: boolean;
   //   selectedTime: string;
   containerRef?: React.RefObject<HTMLDivElement>;
+  graphWidth?: number;
+  graphHeight?: number;
+  barWidth?: number;
 }
 
 export const BarGraph: React.FC<BarGraphProps> = ({
@@ -53,6 +56,9 @@ export const BarGraph: React.FC<BarGraphProps> = ({
   showYAxisTitle = false,
   //   selectedTime,
   containerRef,
+  graphWidth,
+  graphHeight,
+  barWidth,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -60,22 +66,22 @@ export const BarGraph: React.FC<BarGraphProps> = ({
   const [height, setHeight] = useState(0);
 
   //Custom size of graph depending on the card container
-  useLayoutEffect(() => {
-    const updateDimensions = () => {
-      if (containerRef && containerRef.current) {
-        setWidth(containerRef.current.offsetWidth);
-        setHeight(containerRef.current.offsetHeight);
-      }
-    };
-    console.log(containerRef);
+  // useLayoutEffect(() => {
+  //   const updateDimensions = () => {
+  //     if (containerRef && containerRef.current) {
+  //       setWidth(graphWidth || containerRef.current.offsetWidth);
+  //       setHeight(graphHeight || containerRef.current.offsetHeight);
+  //     }
+  //   };
+  //   console.log(containerRef);
 
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
+  //   updateDimensions();
+  //   window.addEventListener("resize", updateDimensions);
 
-    return () => {
-      window.removeEventListener("resize", updateDimensions);
-    };
-  }, [containerRef]);
+  //   return () => {
+  //     window.removeEventListener("resize", updateDimensions);
+  //   };
+  // }, [containerRef, graphWidth, graphHeight]);
 
   const mdSize = { height: 144 };
   const lgSize = { height: 297 };
@@ -85,7 +91,7 @@ export const BarGraph: React.FC<BarGraphProps> = ({
       l: 30,
       r: 30,
       t: 15,
-      b: 21,
+      b: 26,
     },
     xaxis: {
       showgrid: false,
@@ -102,8 +108,8 @@ export const BarGraph: React.FC<BarGraphProps> = ({
     paper_bgcolor: "transparent",
     plot_bgcolor: "transparent",
     showlegend: false,
-    height: height,
-    width: width,
+    height: graphHeight,
+    width: graphWidth,
     bargap: 0.01,
     bargroupgap: 0.1,
   };
@@ -166,30 +172,31 @@ export const BarGraph: React.FC<BarGraphProps> = ({
   };
 
   return (
-      <div className={`w-fit h-fit ${className} relative`}>
-        <Plot
-          data={data.map((trace) => ({
-            ...trace,
-            marker: { ...trace.marker },
-          }))}
-          layout={layout}
-          className="w-fit h-fit"
-          config={{ displayModeBar: false }}
-        />
-        <div className="pt-2">
-          <CustomLegend data={data} />
-        </div>
-        <CustomXAxisTitle
-          //   title={`Time (${selectedTime})`}
-          title={xAxisTitle}
-          size={size}
-          showXAxisTitle={showXAxisTitle}
-        />
-        <CustomYAxisTitle
-          title={yAxisTitle}
-          size={size}
-          showYAxisTitle={showYAxisTitle}
-        />
+    <div className={`w-fit h-fit ${className} relative`}>
+      <Plot
+        data={data.map((trace) => ({
+          ...trace,
+          marker: { ...trace.marker },
+          width: barWidth,
+        }))}
+        layout={layout}
+        className="w-fit h-fit"
+        config={{ displayModeBar: false }}
+      />
+      <div className="pt-2">
+        <CustomLegend data={data} />
       </div>
+      <CustomXAxisTitle
+        //   title={`Time (${selectedTime})`}
+        title={xAxisTitle}
+        size={size}
+        showXAxisTitle={showXAxisTitle}
+      />
+      <CustomYAxisTitle
+        title={yAxisTitle}
+        size={size}
+        showYAxisTitle={showYAxisTitle}
+      />
+    </div>
   );
 };

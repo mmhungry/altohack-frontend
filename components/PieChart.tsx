@@ -72,8 +72,8 @@ export const PieChart: React.FC<PieChartProps> = ({
   };
 
   return (
-    <div className="grid grid-cols-4">
-      <div className="flex col-span-2 place-content-center mb-6 pt-10">
+    <div className="">
+      <div className="">
         <div className="relative flex flex-col items-center justify-between h-fit w-[228px]">
           <div className="relative">
             <Plot
